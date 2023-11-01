@@ -4,7 +4,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>{{ reviews[0].name }}</title>
+    <title>My Reviews</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -49,8 +49,9 @@
                             href="..">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/myreviews">My Reviews</a>
+                        <a class="nav-link" href="">My Reviews</a>
                     </li>
+
                 </ul>
             </div>
         </div>
@@ -61,13 +62,14 @@
             <div class="row text-center">
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-10 col-xl-8 text-center">
-                        <h3 class="fw-bold mb-4">{{ reviews[0].name }}</h3>
+                        <h3 class="fw-bold mb-4">MY REVIEWS</h3>
                     </div>
                 </div>
                 {% for review in reviews %}
                 {% set rating = review.reviewsRating|round|int %}
                 <div class="col-md-4 mt-4 mb-4 mb-md-0">
                     <div class="card">
+                        <h5 class="card-header">{{ review.name }}</h5>
                         <div class="card-body py-4 mt-2">
                             <div class="d-flex justify-content-center mb-4">
                                 <img src="https://alumni.engineering.utoronto.ca/files/2022/05/Avatar-Placeholder-400x400-1.jpg"
@@ -96,6 +98,11 @@
                             <small class="text-muted"> {{ review.reviewsDate
                                 }}</small>
                         </div>
+                        <a href="/update/{{ review._id }}"
+                            class="btn btn-primary">Update review</a>
+
+                        <a href="/delete/{{ review._id }}"
+                            class="btn btn-danger">Delete review</a>
                     </div>
                 </div>
                 {% endfor %}

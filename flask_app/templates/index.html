@@ -37,7 +37,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top ">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button"
                 data-mdb-toggle="collapse"
@@ -47,36 +47,41 @@
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-5">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
                             href="">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Reviews</a>
+                        <a class="nav-link" href="/myreviews">My Reviews</a>
                     </li>
 
                 </ul>
-                <form class="d-flex input-group w-auto">
-                    <select class="form-select" aria-label="Select Option"
-                        id="search-attribute">
+                <form class="d-flex input-group w-auto mx-5">
+                    <select class="form-select w-auto"
+                        aria-label="Select Option" id="sort-order">
+                        <option value="desc">Descending
+                        </option>
+                        <option value="asc">Ascending
+                        </option>
+                    </select>
+                    <select class="form-select w-auto"
+                        aria-label="Select Option" id="search-attribute">
                         <option value="name">Name</option>
                         <option value="city">City</option>
-                        <option value="province">Province</option>
                     </select>
-                    <input type="search" class="form-control h-auto w-25"
+                    <input type="search" class="form-control h-auto w-auto"
                         placeholder="Type query" aria-label="Search"
                         id="search" />
                     <button class="btn btn-outline-primary" type="button"
-                        data-mdb-ripple-color="dark">
+                        id="search-button" data-mdb-ripple-color="dark">
                         Search
                     </button>
                 </form>
             </div>
         </div>
     </nav>
-
-    <div class="row row-cols-1 row-cols-md-4 g-4 m-3" id="results">
+    <div class="row row-cols-1 row-cols-md-4 g-4 m-3 " id="results">
         {% for hotel in hotels %}
         {% set rating_int = hotel.average_value | int%}
         <!-- Parte intera del rating -->
@@ -86,9 +91,9 @@
         <!-- Parte decimale del rating -->
 
         <div class="col">
-            <div class="card">
+            <div class="card h-100">
+                <h5 class="card-header">{{ hotel._id }}</h5>
                 <div class="card-body">
-                    <h5 class="card-title">{{ hotel._id }}</h5>
                     <!-- Stelle intere -->
                     {% for _ in range(rating_int) %}
                     <i class="fas fa-star text-warning"></i>
@@ -103,7 +108,7 @@
                         <i class="fas fa-star text-warning"></i>
                         {% endif %}
 
-                        <span>{{ hotel.average_value | round(1) }}</span>
+                        <i>{{ hotel.average_value | round(1) }}</i>
                         <p class="card-text text-dark-emphasis"> {{
                             hotel.hotel_info.city
                             }}, {{
@@ -114,6 +119,8 @@
                         <a href="/reviews/{{ hotel._id }}"
                             class="btn btn-primary">View reviews</a>
 
+                        <a href="/add/{{ hotel._id }}"
+                            class="btn btn-secondary">Add review</a>
                 </div>
             </div>
         </div>
